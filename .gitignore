@@ -1,3 +1,8 @@
 media
 env
 test
+*/__pycache__
+*/*/__pycache__
+
+src/vot/CStructure.py
+test.py

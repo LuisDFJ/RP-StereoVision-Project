@@ -1,0 +1,8 @@
+CONFIG_FILE = {
+    "IMAGE_SCALE":   0.6,
+    "MARKER_RADIUS": 10,
+    "LEARNING_RATE": 0.001,
+    "LAMBDA":        0.0001,
+    "GAUSS_KERNEL_SIGMA":   2,
+    "GAUSS_RESPONSE_SIGMA": 2,
+}
