@@ -7,7 +7,7 @@ from src.StereoCamTracking import StereoCamTracking
 SCALE = CONFIG_FILE.get( "IMAGE_SCALE", 1.0 )
 
 class StereoCam( StereoCamTracking ):
-    def __init__(self, HL : np.ndarray, HR : np.ndarray, portL : int = 1, portR : int = 2, RES_W = 1280, RES_H = 720, offline = False ) -> None:
+    def __init__(self, mapL, mapR, Q, portL : int = 1, portR : int = 2, RES_W = 1280, RES_H = 720, offline = False, rectify = True ) -> None:
         super().__init__()
         if not offline:
             self.capL = cv2.VideoCapture( portL, cv2.CAP_DSHOW )
@@ -23,14 +23,23 @@ class StereoCam( StereoCamTracking ):
             self.capR.set(cv2.CAP_PROP_FRAME_WIDTH, RES_W)
             self.capR.set(cv2.CAP_PROP_FRAME_HEIGHT,RES_H)
 
-        self.HL = HL
-        self.HR = HR
+        self.mapL = mapL
+        self.mapR = mapR
+        self.Q = Q
+        self.rectify_flag = rectify
+
+        #self.HL = HL
+        #self.HR = HR
         self._gen = self.gen()
 
     def rectify( self, FL : np.ndarray, FR : np.ndarray ):
-        rFL = cv2.warpPerspective( FL, self.HL, self.size, flags=cv2.INTER_LINEAR )
-        rFR = cv2.warpPerspective( FR, self.HR, self.size, flags=cv2.INTER_LINEAR )
-        return rFL , rFR
+        if self.rectify_flag:
+            rFL = cv2.remap( FL, *self.mapL, interpolation=cv2.INTER_LINEAR )
+            rFR = cv2.remap( FR, *self.mapR, interpolation=cv2.INTER_LINEAR )
+            #rFL = cv2.warpPerspective( FL, self.HL, self.size, flags=cv2.INTER_LINEAR )
+            #rFR = cv2.warpPerspective( FR, self.HR, self.size, flags=cv2.INTER_LINEAR )
+            return rFL , rFR
+        return FL, FR
 
     def post_process( self, FL : np.ndarray, FR : np.ndarray ):
         return ( 
