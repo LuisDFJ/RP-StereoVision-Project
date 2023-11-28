@@ -1,6 +1,7 @@
 media
 env
 test
+results
 */__pycache__
 */*/__pycache__
 

@@ -1,7 +1,9 @@
 CONFIG_FILE = {
+    "DRAW_REF_LINES":False,
     "CAM_RES":       "nHD",
     "IMAGE_SCALE":   1.0,
     "MARKER_RADIUS": 10,
+    "XCORR_RADIUS":  20,
     "LEARNING_RATE": 0.001,
     "LAMBDA":        0.0001,
     "GAUSS_KERNEL_SIGMA":   2,

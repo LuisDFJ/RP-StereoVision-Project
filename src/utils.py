@@ -57,3 +57,10 @@ def calibrate_stereo_camera( KL, KR, R, T, dL, dR ):
     m1R, m2R = cv2.initUndistortRectifyMap( KR, dR, R2, P2, (RES_W,RES_H), cv2.CV_32FC1 )
 
     return ( m1L, m2L ), ( m1R, m2R ), Q
+
+def save_logs( pFile, POS ):
+    line = ""
+    for x, y, z in POS:
+        line = line + "{:.2f},{:.2f},{:.2f},".format( x, y, z )
+    line = line[0:-1] + "\n"
+    pFile.write( line )

@@ -8,7 +8,7 @@ SCALE = CONFIG_FILE.get( "IMAGE_SCALE", 1.0 )
 
 class StereoCam( StereoCamTracking ):
     def __init__(self, mapL, mapR, Q, portL : int = 1, portR : int = 2, RES_W = 1280, RES_H = 720, offline = False, rectify = True ) -> None:
-        super().__init__()
+        super().__init__(Q)
         if not offline:
             self.capL = cv2.VideoCapture( portL, cv2.CAP_DSHOW )
             self.capL.set(cv2.CAP_PROP_FRAME_WIDTH, RES_W)
@@ -25,7 +25,6 @@ class StereoCam( StereoCamTracking ):
 
         self.mapL = mapL
         self.mapR = mapR
-        self.Q = Q
         self.rectify_flag = rectify
 
         #self.HL = HL
