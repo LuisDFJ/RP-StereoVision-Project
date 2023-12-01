@@ -1,4 +1,5 @@
 CONFIG_FILE = {
+    "DEBUG":         False,
     "DRAW_REF_LINES":False,
     "CAM_RES":       "nHD",
     "IMAGE_SCALE":   1.0,

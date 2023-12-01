@@ -7,6 +7,7 @@ from src.vot.CROI import CROI
 
 RADIUS    = CONFIG_FILE.get( "MARKER_RADIUS", 10 )
 XC_RADIUS = CONFIG_FILE.get( "XCORR_RADIUS", 10 )
+DEBUG     = CONFIG_FILE.get( "DEBUG", False )
 
 class CTracker:
     def __init__(self, Q : np.ndarray, POS : list[ tuple[ int, int ] ]) -> None:
@@ -56,6 +57,8 @@ class CTracker:
         for i in range( m, w - m ):
             f = cv2.cvtColor( self.window_crop( F, (roi[0], i ) ), cv2.COLOR_BGR2GRAY )
             l.append( self.NCC( f, t ) )
+            if DEBUG: cv2.imshow( "DEBUG", f )
+        if DEBUG: cv2.destroyWindow( "DEBUG" )
         l = np.array( l )
         return l.argmax() + m
     

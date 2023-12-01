@@ -1,3 +1,4 @@
+import os
 import cv2
 from src import CAM_RES, CONFIG_FILE
 from src.StereoCam import StereoCam
@@ -19,6 +20,7 @@ cv2.setMouseCallback( "Left", cam.mouseCallback )
 record_flag = False
 i = 1
 
+if not os.path.exists(r".\results"): os.makedirs(r".\results") 
 with open( f".\\results\\results_{time.strftime('%b-%d-%Y_%H%M', time.localtime())}.csv", "w" ) as pFile:
     while True:
         s = time.time()
